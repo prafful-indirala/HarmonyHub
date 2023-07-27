@@ -7,7 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import SignInScreen from "./components/SignInScreen";
 import SignUpScreen from "./components/SignUpScreen";
 import SplashScreen from "./components/SplashScreen";
-import AppIntroScreen from "./components/AppIntroScreen";
+import WelcomeScreen from "./components/WelcomeScreen";
 
 LogBox.ignoreAllLogs();
 
@@ -27,7 +27,7 @@ function App() {
           />
           <Stack.Screen
             name="Welcome"
-            component={AppIntroScreen}
+            component={WelcomeScreen}
             options={{
               headerShown: false,
             }}

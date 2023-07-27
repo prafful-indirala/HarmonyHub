@@ -6,7 +6,7 @@ export default SplashScreen = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Welcome");
+      navigation.replace("Welcome");
     }, 3000);
   });
   return (
