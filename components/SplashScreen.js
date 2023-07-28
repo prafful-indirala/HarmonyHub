@@ -19,7 +19,7 @@ export default SplashScreen = () => {
       }}
     >
       <Text style={{ color: "#fff", fontWeight: "900", fontSize: 30 }}>
-        TeamMate
+        HarmonyHub
       </Text>
       <View style={{ position: "absolute", bottom: 80 }}>
         <ActivityIndicator size={"large"} height={30} color={"#fff"} />
