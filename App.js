@@ -8,6 +8,7 @@ import SignInScreen from "./components/SignInScreen";
 import SignUpScreen from "./components/SignUpScreen";
 import SplashScreen from "./components/SplashScreen";
 import WelcomeScreen from "./components/WelcomeScreen";
+import HomeScreen from "./components/HomeScreen";
 
 LogBox.ignoreAllLogs();
 
@@ -42,6 +43,13 @@ function App() {
           <Stack.Screen
             name="Second"
             component={SignUpScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
             options={{
               headerShown: false,
             }}

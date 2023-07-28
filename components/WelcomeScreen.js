@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,22 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { width } = Dimensions.get("window");
+  const scrollViewRef = useRef();
 
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
+    console.log("currentPage", currentPage);
+    if (currentPage === 2) {
+      setTimeout(() => {
+        navigation.navigate("Home");
+      }, 3000);
+    }
     const { x } = event.nativeEvent.contentOffset;
     const indexOfNextScreen = Math.floor(x / width);
     if (indexOfNextScreen !== currentPage) {
@@ -29,6 +39,7 @@ const WelcomeScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView
+        ref={scrollViewRef}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}
@@ -47,8 +58,10 @@ const WelcomeScreen = () => {
             style={styles.imageStyle}
           />
           <View style={styles.wrapper}>
-            <Text style={styles.header}>Welcome to TeamMate</Text>
-            <Text style={styles.paragraph}>....something like that</Text>
+            <Text style={styles.header}>Discover Your Rhythm</Text>
+            <Text style={styles.paragraph}>
+              Explore a World of Melody and Beats
+            </Text>
           </View>
         </View>
         <View style={{ width }}>
@@ -57,9 +70,9 @@ const WelcomeScreen = () => {
             style={styles.imageStyle}
           />
           <View style={styles.wrapper}>
-            <Text style={styles.header}>High quality Art work</Text>
+            <Text style={styles.header}>Your Personal Concert Hall</Text>
             <Text style={styles.paragraph}>
-              ... for a fraction of the price
+              Tailor-Made Playlists and Recommendations Just for You
             </Text>
           </View>
         </View>
@@ -69,8 +82,10 @@ const WelcomeScreen = () => {
             style={styles.imageStyle}
           />
           <View style={styles.wrapper}>
-            <Text style={styles.header}>Top Notch Artists</Text>
-            <Text style={styles.paragraph}>... all in one place</Text>
+            <Text style={styles.header}>Join the Groove Community</Text>
+            <Text style={styles.paragraph}>
+              Connect with Music Lovers Worldwide
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -106,6 +121,23 @@ const WelcomeScreen = () => {
               paddingHorizontal: 40,
               borderRadius: 10,
             }}
+            onPress={() => {
+              console.log("sliderState", sliderState);
+              // Increment the current page index by 1
+              const nextPageIndex = (pageIndex + 1) % 3;
+
+              // Scroll to the next page using the ScrollView reference
+              scrollViewRef.current.scrollTo({
+                x: nextPageIndex * width,
+                animated: true,
+              });
+
+              // Update the state with the new page index
+              setSliderState({
+                ...sliderState,
+                currentPage: nextPageIndex,
+              });
+            }}
           >
             <Text
               style={{
@@ -135,7 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageStyle: {
-    height: "38%",
+    height: "45%",
     width: "100%",
   },
   wrapper: {
@@ -144,7 +176,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   header: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "bold",
     marginBottom: 20,
     color: "#fff",
@@ -152,6 +184,8 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 17,
     color: "#fff",
+    textAlign: "center",
+    paddingHorizontal: 30,
   },
   paginationWrapper: {
     position: "absolute",
